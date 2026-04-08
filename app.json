@@ -1,37 +1,38 @@
 {
   "expo": {
-    "name": "hk-school-finder",
+    "name": "HK School Finder",
     "slug": "hk-school-finder",
     "version": "1.0.0",
+    "scheme": "hk-school-finder",
     "orientation": "portrait",
+    "newArchEnabled": true,
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1E3A5F"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hkschoolfinder.app"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1E3A5F"
       },
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "package": "com.hkschoolfinder.app",
+      "usesCleartextTraffic": true
     },
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-sqlite",
-      "expo-image",
-      "expo-localization"
-    ]
+      "expo-localization",
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
