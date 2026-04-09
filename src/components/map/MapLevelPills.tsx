@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ScrollView, Pressable, Text, StyleSheet } from "react-native";
 import { useFilterStore } from "@/stores/useFilterStore";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -10,7 +11,7 @@ const LEVELS: { key: EducationLevel; enLabel: string; i18nKey: string }[] = [
   { key: "UNIVERSITY", enLabel: "Post-Sec", i18nKey: "map_post_sec" },
 ];
 
-export function MapLevelPills() {
+export const MapLevelPills = memo(function MapLevelPills() {
   const educationLevel = useFilterStore((s) => s.educationLevel);
   const setEducationLevel = useFilterStore((s) => s.setEducationLevel);
   const { t } = useLanguage();
@@ -47,7 +48,7 @@ export function MapLevelPills() {
       })}
     </ScrollView>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +58,9 @@ const styles = StyleSheet.create({
   pill: {
     borderRadius: 18,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 10,
     marginRight: 8,
-    minHeight: 36,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",

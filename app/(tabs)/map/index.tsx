@@ -101,13 +101,6 @@ export default function MapScreen() {
     previewSheetRef.current?.close();
   }, []);
 
-  const mapTypeIcon =
-    mapType === "standard"
-      ? "layers-outline"
-      : mapType === "satellite"
-        ? "globe-outline"
-        : "trail-sign-outline";
-
   return (
     <View style={styles.container}>
       {/* Map */}
@@ -137,6 +130,7 @@ export default function MapScreen() {
             }}
             tracksViewChanges={false}
             onPress={() => onMarkerPress(pin)}
+            accessibilityLabel={pin.nameEn}
           >
             <SchoolPin financeType={pin.financeType} />
           </Marker>
@@ -165,7 +159,7 @@ export default function MapScreen() {
         accessibilityRole="button"
         accessibilityLabel={t("map_layer_standard")}
       >
-        <Ionicons name={mapTypeIcon} size={22} color={COLORS.primary} />
+        <Ionicons name="layers-outline" size={22} color={COLORS.primary} />
       </Pressable>
 
       {/* My Location button (bottom-right) */}
