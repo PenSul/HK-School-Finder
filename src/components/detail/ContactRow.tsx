@@ -38,7 +38,7 @@ export const ContactRow = memo(function ContactRow({
 
   const content = (
     <View
-      className="flex-row items-center py-3 border-b border-hairline-light"
+      className="flex-row items-center py-3 border-b border-hairline"
       style={{ minHeight: 48 }}
     >
       <Ionicons

@@ -199,7 +199,7 @@ export default function CompareScreen() {
               {/* Header Row: names */}
               <View className="flex-row">
                 <View
-                  className="justify-end px-3 py-3 bg-surface-light border-b border-r border-hairline-light"
+                  className="justify-end px-3 py-3 bg-surface-light border-b border-r border-hairline"
                   style={{ width: 100 }}
                 >
                   <Text className="text-xs font-semibold text-text-secondary">
@@ -209,7 +209,7 @@ export default function CompareScreen() {
                 {items.map((item) => (
                   <View
                     key={item.id}
-                    className="px-3 py-3 bg-surface-light border-b border-r border-hairline-light"
+                    className="px-3 py-3 bg-surface-light border-b border-r border-hairline"
                     style={{ width: colWidth }}
                   >
                     <Text
@@ -258,7 +258,7 @@ export default function CompareScreen() {
                 return (
                   <View key={row.key} className="flex-row">
                     <View
-                      className="justify-center px-3 py-3 bg-surface-light border-b border-r border-hairline-light"
+                      className="justify-center px-3 py-3 bg-surface-light border-b border-r border-hairline"
                       style={{ width: 100 }}
                     >
                       <Text className="text-xs font-medium text-text-secondary">
@@ -270,7 +270,7 @@ export default function CompareScreen() {
                       return (
                         <View
                           key={items[idx].id}
-                          className="justify-center px-3 py-3 border-b border-r border-hairline-light"
+                          className="justify-center px-3 py-3 border-b border-r border-hairline"
                           style={{
                             width: colWidth,
                             backgroundColor: isDiff
@@ -296,7 +296,7 @@ export default function CompareScreen() {
 
         {/* Bottom Bar */}
         <View
-          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline-light"
+          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline"
           style={{ paddingBottom: 24 }}
         >
           <Pressable

@@ -157,7 +157,7 @@ export default function SchoolDetailScreen() {
           </View>
 
           {/* Tab Switcher */}
-          <View className="flex-row mx-4 mt-4 mb-3 bg-bg-light rounded-lg overflow-hidden border border-hairline-light">
+          <View className="flex-row mx-4 mt-4 mb-3 bg-bg-light rounded-lg overflow-hidden border border-hairline">
             <Pressable
               onPress={() => setActiveTab("overview")}
               className={`flex-1 py-2.5 items-center ${activeTab === "overview" ? "bg-primary" : ""}`}
@@ -271,7 +271,7 @@ export default function SchoolDetailScreen() {
 
         {/* Bottom Sticky Bar */}
         <View
-          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline-light"
+          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline"
           style={{ paddingBottom: 24 }}
         >
           <Pressable

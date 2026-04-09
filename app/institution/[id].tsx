@@ -287,7 +287,7 @@ export default function InstitutionDetailScreen() {
                       {section.data.map((prog) => (
                         <View
                           key={prog.objectid}
-                          className="py-2 border-b border-hairline-light"
+                          className="py-2 border-b border-hairline"
                         >
                           <Text
                             className="text-sm text-text-primary"
@@ -315,7 +315,7 @@ export default function InstitutionDetailScreen() {
 
         {/* Bottom Sticky Bar */}
         <View
-          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline-light"
+          className="absolute bottom-0 left-0 right-0 flex-row gap-3 px-4 py-3 bg-surface-light border-t border-hairline"
           style={{ paddingBottom: 24 }}
         >
           <Pressable
