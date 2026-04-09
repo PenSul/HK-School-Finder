@@ -112,3 +112,15 @@ export async function getSchoolsForMap(
     params
   );
 }
+
+export async function getSchoolsByIds(
+  db: SQLiteDatabase,
+  ids: string[]
+): Promise<School[]> {
+  if (ids.length === 0) return [];
+  const placeholders = ids.map(() => "?").join(",");
+  return db.getAllAsync<School>(
+    `SELECT * FROM schools WHERE school_no IN (${placeholders})`,
+    ids
+  );
+}

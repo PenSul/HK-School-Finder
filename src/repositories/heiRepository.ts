@@ -67,3 +67,15 @@ export async function getInstitutionsForMap(
     "SELECT * FROM hei_institutions WHERE latitude != 0 AND longitude != 0"
   );
 }
+
+export async function getInstitutionsByIds(
+  db: SQLiteDatabase,
+  ids: number[]
+): Promise<HeiInstitution[]> {
+  if (ids.length === 0) return [];
+  const placeholders = ids.map(() => "?").join(",");
+  return db.getAllAsync<HeiInstitution>(
+    `SELECT * FROM hei_institutions WHERE objectid IN (${placeholders})`,
+    ids
+  );
+}
