@@ -7,11 +7,9 @@ import {
   Alert,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import ClusteredMapView from "react-native-map-clustering";
-import { Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import type { MapPressEvent, Region } from "react-native-maps";
 import type BottomSheet from "@gorhom/bottom-sheet";
-import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useMapPins } from "@/hooks/useMapPins";
 import { useFilterStore } from "@/stores/useFilterStore";
@@ -86,21 +84,26 @@ export default function MapScreen() {
   }, []);
 
   const goToMyLocation = useCallback(async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
+    try {
+      const Location = await import("expo-location");
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(t("map_location_denied"));
+        return;
+      }
+      const location = await Location.getCurrentPositionAsync({});
+      mapRef.current?.animateToRegion(
+        {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        500
+      );
+    } catch {
       Alert.alert(t("map_location_denied"));
-      return;
     }
-    const location = await Location.getCurrentPositionAsync({});
-    mapRef.current?.animateToRegion(
-      {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      },
-      500
-    );
   }, [t]);
 
   const onMapPress = useCallback((_e: MapPressEvent) => {
@@ -110,7 +113,7 @@ export default function MapScreen() {
   return (
     <View style={styles.container}>
       {/* Map */}
-      <ClusteredMapView
+      <MapView
         ref={mapRef}
         style={StyleSheet.absoluteFillObject}
         initialRegion={HK_REGION}
@@ -119,12 +122,6 @@ export default function MapScreen() {
         showsMyLocationButton={false}
         showsCompass={false}
         onPress={onMapPress}
-        clusterColor={COLORS.primary}
-        clusterTextColor="#FFFFFF"
-        radius={50}
-        minZoomLevel={8}
-        maxZoomLevel={18}
-        animationEnabled={false}
       >
         {pins.map((pin) => (
           <Marker
@@ -141,7 +138,7 @@ export default function MapScreen() {
             <SchoolPin financeType={pin.financeType} />
           </Marker>
         ))}
-      </ClusteredMapView>
+      </MapView>
 
       {/* Loading indicator */}
       {loading && (

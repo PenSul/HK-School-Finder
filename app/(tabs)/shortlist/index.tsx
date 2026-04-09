@@ -92,7 +92,7 @@ export default function ShortlistScreen() {
 
   if (!loading && items.length === 0) {
     return (
-      <View className="flex-1 bg-bg-light">
+      <View className="flex-1 bg-bg-light dark:bg-bg-dark">
         <EmptyState
           title={t("shortlist_empty")}
           message={t("shortlist_empty_cta")}
@@ -103,7 +103,7 @@ export default function ShortlistScreen() {
   }
 
   return (
-    <View className="flex-1 bg-bg-light">
+    <View className="flex-1 bg-bg-light dark:bg-bg-dark">
       <FlashList
         data={items}
         renderItem={renderItem}

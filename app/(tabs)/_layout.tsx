@@ -1,16 +1,20 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTheme } from "@/providers/ThemeProvider";
 import { COLORS } from "@/constants/colors";
 
 export default function TabLayout() {
+  const { colorScheme } = useTheme();
+  const isDark = colorScheme === "dark";
+
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: COLORS.accent,
-        tabBarInactiveTintColor: COLORS.light.textSecondary,
+        tabBarInactiveTintColor: isDark ? COLORS.dark.textSecondary : COLORS.light.textSecondary,
         tabBarStyle: {
-          backgroundColor: COLORS.light.surface,
-          borderTopColor: COLORS.light.hairline,
+          backgroundColor: isDark ? COLORS.dark.surface : COLORS.light.surface,
+          borderTopColor: isDark ? COLORS.dark.hairline : COLORS.light.hairline,
         },
         headerStyle: {
           backgroundColor: COLORS.primary,
@@ -20,7 +24,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="discover"
+        name="discover/index"
         options={{
           title: "Discover",
           tabBarIcon: ({ color, size }) => (
@@ -29,7 +33,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="map"
+        name="map/index"
         options={{
           title: "Map",
           headerShown: false,
@@ -39,7 +43,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="shortlist"
+        name="shortlist/index"
         options={{
           title: "Shortlist",
           tabBarIcon: ({ color, size }) => (
@@ -48,7 +52,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="calendar"
+        name="calendar/index"
         options={{
           title: "Calendar",
           tabBarIcon: ({ color, size }) => (
@@ -57,7 +61,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="settings/index"
         options={{
           title: "Settings",
           tabBarIcon: ({ color, size }) => (

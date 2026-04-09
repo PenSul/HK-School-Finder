@@ -99,7 +99,7 @@ export default function DiscoverScreen() {
   );
 
   return (
-    <View className="flex-1 bg-bg-light">
+    <View className="flex-1 bg-bg-light dark:bg-bg-dark">
       <EducationLevelTabs />
       <SearchBar onFilterPress={openFilter} hasActiveFilters={hasActiveFilters} />
       <ActiveFilterChips />

@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo } from "react";
 import { View, Text, Pressable, StyleSheet, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import * as Notifications from "expo-notifications";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useCalendarEvents } from "@/hooks/useCalendarEvents";
 import { updateEvent } from "@/repositories/calendarRepository";
@@ -62,23 +61,28 @@ export default function CalendarScreen() {
         school_no: event.school_no ?? undefined,
         reminder_enabled: enabled,
       });
-      // Schedule or cancel local notification
-      if (enabled) {
-        const { status } = await Notifications.requestPermissionsAsync();
-        if (status === "granted") {
-          const triggerDate = new Date(event.event_date);
-          triggerDate.setDate(triggerDate.getDate() - 1);
-          triggerDate.setHours(9, 0, 0, 0);
-          if (triggerDate > new Date()) {
-            await Notifications.scheduleNotificationAsync({
-              content: { title: event.title, body: `Tomorrow: ${event.title}` },
-              trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
-              identifier: `reminder-${eventId}`,
-            });
+      // Schedule or cancel local notification (dynamic import for Expo Go compat)
+      try {
+        const Notifications = await import("expo-notifications");
+        if (enabled) {
+          const { status } = await Notifications.requestPermissionsAsync();
+          if (status === "granted") {
+            const triggerDate = new Date(event.event_date);
+            triggerDate.setDate(triggerDate.getDate() - 1);
+            triggerDate.setHours(9, 0, 0, 0);
+            if (triggerDate > new Date()) {
+              await Notifications.scheduleNotificationAsync({
+                content: { title: event.title, body: `Tomorrow: ${event.title}` },
+                trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: triggerDate },
+                identifier: `reminder-${eventId}`,
+              });
+            }
           }
+        } else {
+          await Notifications.cancelScheduledNotificationAsync(`reminder-${eventId}`);
         }
-      } else {
-        await Notifications.cancelScheduledNotificationAsync(`reminder-${eventId}`);
+      } catch {
+        // expo-notifications unavailable in Expo Go -- silently skip
       }
       refresh();
     },
