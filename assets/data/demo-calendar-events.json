@@ -1,0 +1,17 @@
+[
+  { "title": "POA Application Opens", "event_date": "2026-09-01", "event_time": "09:00", "category": "poa", "description": "Primary One Admission (POA) application period begins" },
+  { "title": "POA Submission Deadline", "event_date": "2026-09-30", "event_time": "17:00", "category": "poa", "description": "Last day to submit POA application forms" },
+  { "title": "POA Interview Period", "event_date": "2026-11-01", "category": "poa", "description": "Schools begin conducting POA interviews" },
+  { "title": "POA Results Announcement", "event_date": "2026-11-28", "event_time": "10:00", "category": "poa", "description": "POA allocation results released" },
+  { "title": "KG Admission Application Opens", "event_date": "2026-09-08", "event_time": "09:00", "category": "kg", "description": "Kindergarten admission application period begins" },
+  { "title": "KG Application Deadline", "event_date": "2026-10-15", "event_time": "17:00", "category": "kg", "description": "Last day to submit KG admission applications" },
+  { "title": "KG Interview Results", "event_date": "2026-12-10", "category": "kg", "description": "KG admission interview results released" },
+  { "title": "St. Paul School Open Day", "event_date": "2026-10-18", "event_time": "10:00", "category": "open_day", "description": "Annual open day at St. Paul School" },
+  { "title": "DBS Open Day", "event_date": "2026-10-25", "event_time": "09:30", "category": "open_day", "description": "Diocesan Boys School open day" },
+  { "title": "SPCC Open Day", "event_date": "2026-11-08", "event_time": "10:00", "category": "open_day", "description": "St. Paul Co-Educational College open day" },
+  { "title": "Island School Open Day", "event_date": "2026-11-15", "event_time": "14:00", "category": "open_day", "description": "ESF Island School open day for prospective families" },
+  { "title": "SSPA Registration", "event_date": "2026-04-15", "event_time": "09:00", "category": "sspa", "description": "Secondary School Places Allocation registration opens" },
+  { "title": "SSPA Band Results", "event_date": "2026-05-20", "event_time": "10:00", "category": "sspa", "description": "SSPA banding results released" },
+  { "title": "SSPA Allocation Results", "event_date": "2026-07-07", "event_time": "10:00", "category": "sspa", "description": "Final SSPA school allocation results announced" },
+  { "title": "School Tour Reminder", "event_date": "2026-04-20", "event_time": "14:00", "category": "custom", "description": "Personal reminder: visit shortlisted schools" }
+]

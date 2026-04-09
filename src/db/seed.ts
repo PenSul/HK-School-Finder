@@ -13,6 +13,7 @@ import {
   parseHeiInstitution,
   parseUgcProgramme,
 } from "./parsers";
+import type { CalendarEventInput } from "@/types/calendar";
 
 const SCHOOLS_API_URL =
   "http://www.edb.gov.hk/attachment/en/student-parents/sch-info/sch-search/sch-location-info/SCH_LOC_EDB.json";
@@ -65,6 +66,9 @@ export async function seedDatabase(
 
   onProgress?.({ phase: "ugc", message: "Saving programme data..." });
   await insertProgrammes(db, programmes);
+
+  // Seed demo calendar events
+  await seedCalendarEvents(db);
 
   // Write seed metadata
   const now = new Date().toISOString();
@@ -221,6 +225,51 @@ async function insertProgrammes(
           p.level_of_study_en, p.level_of_study_tc,
           p.mode_of_study_en, p.mode_of_study_tc,
           p.latitude, p.longitude,
+        ]);
+      }
+    } finally {
+      await stmt.finalizeAsync();
+    }
+  });
+}
+
+export async function seedCalendarEvents(db: SQLiteDatabase): Promise<void> {
+  // Check if already seeded
+  const existing = await db.getFirstAsync<{ count: number }>(
+    "SELECT COUNT(*) as count FROM calendar_events WHERE is_seeded = 1"
+  );
+  if (existing && existing.count > 0) return;
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const demoEvents = require("../../assets/data/demo-calendar-events.json") as Array<{
+    title: string;
+    event_date: string;
+    event_time?: string;
+    category: string;
+    description?: string;
+  }>;
+
+  const generateId = (): string =>
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+
+  await db.withTransactionAsync(async () => {
+    const sql = `INSERT INTO calendar_events
+      (id, title, description, event_date, event_time, category, school_no, reminder_enabled, is_seeded)
+      VALUES (?, ?, ?, ?, ?, ?, NULL, 0, 1)`;
+    const stmt = await db.prepareAsync(sql);
+    try {
+      for (const e of demoEvents) {
+        await stmt.executeAsync([
+          generateId(),
+          e.title,
+          e.description ?? null,
+          e.event_date,
+          e.event_time ?? null,
+          e.category,
         ]);
       }
     } finally {
